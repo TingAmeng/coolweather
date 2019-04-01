@@ -12,34 +12,59 @@
         android:layout_height="match_parent"
         android:scaleType="centerCrop"/>
     <!--因为FrameLayout 布局 ，ScrollView会覆盖 ImageView, ImageView就成为程序主界面背景图片-->
-    
-    <!--因为天气界面显示内容较多，嵌套一个ScrollView, 实现滚动方式查看屏幕以外内容-->
-    <ScrollView
-        android:id="@+id/weather_layout"
+
+
+    <!-- DrawerLayout 第一个控件 作为主屏幕显示的内容，第二个控件 作为滑动菜单的显示内容-->
+    <android.support.v4.widget.DrawerLayout
+        android:id="@+id/drawer_layout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scrollbars="none"
-        android:overScrollMode="never">
+        android:layout_height="match_parent">
 
-        <!--由于ScrollView 只允许存在一个子布局，所以嵌套一个LinearLayout,
-        依次把其他子布局引入-->
-
-        <LinearLayout
-            android:orientation="vertical"
+        <!--下拉刷新-->
+        <android.support.v4.widget.SwipeRefreshLayout
+            android:id="@+id/swipe_refresh"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:fitsSystemWindows="true">
+            android:layout_height="match_parent">
 
-            <!--fitsSystemWindows="true" 表示会为系统状态栏留出空间-->
 
-            <include layout="@layout/title" />
-            <include layout="@layout/now" />
-            <include layout="@layout/forecast" />
-            <include layout="@layout/aqi" />
-            <include layout="@layout/suggestion" />
+             <!--因为天气界面显示内容较多，嵌套一个ScrollView, 实现滚动方式查看屏幕以外内容-->
+            <ScrollView
+            android:id="@+id/weather_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scrollbars="none"
+            android:overScrollMode="never">
 
-        </LinearLayout>
+            <!--由于ScrollView 只允许存在一个子布局，所以嵌套一个LinearLayout,
+            依次把其他子布局引入-->
 
-    </ScrollView>
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fitsSystemWindows="true">
+
+                <!--fitsSystemWindows="true" 表示会为系统状态栏留出空间-->
+
+                <include layout="@layout/title" />
+                <include layout="@layout/now" />
+                <include layout="@layout/forecast" />
+                <include layout="@layout/aqi" />
+                <include layout="@layout/suggestion" />
+
+            </LinearLayout>
+
+        </ScrollView>
+
+        </android.support.v4.widget.SwipeRefreshLayout>
+
+        <fragment
+            android:id="@+id/choose_area_fragment"
+            android:name="com.example.coolweather.ChooseAreaFragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="start"/>
+
+    </android.support.v4.widget.DrawerLayout>
 
 </FrameLayout>
